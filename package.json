@@ -1,6 +1,6 @@
 {
   "name": "node-c-lexer",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "NodeJS library to get token stream from C code.",
   "main": "index.js",
   "scripts": {
