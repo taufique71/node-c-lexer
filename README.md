@@ -2,9 +2,9 @@
 Lexical analyzer library for C programming language in NodeJS
 
 ### Usage
-There are two units in the library - preprocessing unit and lexical analyzing 
-unit. These two units can be used independently. Purpose of including 
-preprocessing unit within the library is so that user can remove the 
+There are two units in the library - preprocessing unit and lexical analyzing
+unit. These two units can be used independently. Purpose of including
+preprocessing unit within the library is so that user can remove the
 preprocessor with it and then feed it to scanning unit to get token stream.
 
 ##### Preprocessing Unit
@@ -19,6 +19,25 @@ lexer.cppUnit.clearPreprocessors("./a.c", function(err, codeText){
         /* Do what you want to do with preprocessor free code text */
     }
 });
+```
+The clearPreprocessors method by default invokes `cpp` on the first arguement,
+producing an intermediate preprocessed file. It then finalizes the output by stripping
+the output of the preprocessor from the intermediate file and passing it to your callback
+as codeText.
+
+If you already have preprocessed files (.ii) at hand, you can skip the preprocessing step
+by passing the path to your preprocessed file as your last arguement.
+
+```js
+var lexer = require("node-c-lexer");
+lexer.cppUnit.clearPreprocessors("./a.c", function(err, codeText){
+    if(err){
+        /* Some error occured */
+    }
+    else{
+        /* Do what you want to do with preprocessor free code text */
+    }
+}, "./a.ii");
 ```
 
 ##### Scanning Unit
@@ -40,5 +59,5 @@ object. Format of a single token is following
     "child": null
 }
 ```
-```parent``` and ```child``` 
+```parent``` and ```child```
 these two are kept so that parse tree can be built using the tokens as nodes.
