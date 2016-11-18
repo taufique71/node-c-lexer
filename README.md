@@ -28,6 +28,10 @@ as codeText.
 If you already have preprocessed files (.ii) at hand, you can skip the preprocessing step
 by passing the path to your preprocessed file as your last arguement.
 
+A reason why would want to do something like this is if you, for instance, have a
+separate environment on which your .ii(s) are generated(e.g preprocessed files are produced
+within your windows bash environment). Or if your preprocessing pass diverges from
+the execution of a simple 'cpp' command in general.
 ```js
 var lexer = require("node-c-lexer");
 lexer.cppUnit.clearPreprocessors("./a.c", function(err, codeText){
