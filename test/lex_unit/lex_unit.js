@@ -47,4 +47,16 @@ describe("Tests for lexing unit", function(){
             }
         });
     });
+    it("case_4 should have 63 tokens", function(done){
+        var input_file = __dirname + "/cases/case_4.c.pp";
+        var tokenize = require("../../lib/lex-unit.js").tokenize;
+        fs.readFile(input_file, "utf-8", function(err, code_text){
+            if(err) done(err);
+            else{
+                var tokens = tokenize(code_text);
+                assert.equal(tokens.length, 63);
+                done();
+            }
+        });
+    });
 });
