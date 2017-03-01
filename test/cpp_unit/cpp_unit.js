@@ -89,4 +89,30 @@ describe("Tests for preprocessor removal unit", function(){
             }
         });
     });
+    it("Should successfully remove preprocessor from case_4.c file", function(done){
+        var input_file = __dirname + "/cases/case_4.c";
+        var output_file = __dirname + "/cases/case_4.c.pp";
+        var clearPreprocessors = require("../../lib/cpp-unit.js").clearPreprocessors;
+        async.parallel([
+            function(read_output_file){
+                fs.readFile(output_file, "utf-8", function(err, data){
+                    if(err) read_output_file(err);
+                    else read_output_file(null, data);
+                });
+            },
+            function(perform_operation){
+                clearPreprocessors(input_file, function(err, data){
+                    if(err) perform_operation(err);
+                    else perform_operation(null, data);
+                });
+            }
+        ], function(err, results){
+            if(err) done(err);
+            else{
+                var d = diff.diffChars(results[0], results[1]);
+                assert.equal(d.length, 1);
+                done(null);
+            }
+        });
+    });
 });
